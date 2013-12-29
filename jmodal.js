@@ -19,7 +19,8 @@ limitations under the License.
         var settings = $.extend({
             'background-color' : '#000',
             'class' : 'modal',
-            'outsideClickable' : true
+            'outsideClickable' : true,
+            'closeButton' : ''
         }, opt);
 
         $(this).click(function(e) {
@@ -46,7 +47,7 @@ limitations under the License.
             $(id).css({
                 'top':  win.height() / 2 - $(id).height() / 2,
                 'left': win.width() / 2 - $(id).width() / 2,
-                'position': 'absolute',
+                'position': 'fixed',
                 'z-index': 9999
             }).fadeIn(200);
 
@@ -56,6 +57,11 @@ limitations under the License.
                     $(id).hide();
                 });
             }
+
+            $(settings['closeButton']).click(function() {
+                $(div).hide();
+                $(id).hide();
+            });
         });
     };
 
