@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script src="jquery.min.js"></script>
+        <script src="jmodal.js"></script>
+        <script type="text/javascript">
+            $().ready(function(){
+                $(".modal").jmodal();
+            });
+        </script>
+        <style type="text/css">
+
+            .modalDialog {
+                display: none;
+                width: 300px;
+                height: 300px;
+            }
+            #modal1 {
+                background-color: #00ffff;
+            }
+            #modal2 {
+                background-color: #ff00ff;
+            }
+        </style>
+    </head>
+    <body>
+        <a class="modal" href="#modal1">Modal1</a>
+        <a class="modal" href="#modal2">Modal2</a>
+        <div class="modalDialog" id="modal1">
+            modal1
+        </div>
+        <div class="modalDialog" id="modal2">
+            modal2
+        </div>
+    </body>
+</html>
