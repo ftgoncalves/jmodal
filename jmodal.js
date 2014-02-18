@@ -15,12 +15,22 @@ limitations under the License.
 */
 (function($) {
 
+    var id;
+    var div;
+
+    $.jmodalDismiss = function() {
+        id.hide();
+        div.hide();
+    };
+
     $.fn.jmodal = function(opt) {
         var settings = $.extend({
             'background-color' : '#000',
             'class' : 'modal',
             'outsideClickable' : true,
-            'closeButton' : ''
+            'closeButton' : '',
+            'beforeDisplay' : function(){},
+            'onClose': function(){}
         }, opt);
 
         $(this).click(function(e) {
@@ -42,11 +52,14 @@ limitations under the License.
 
             $(div).addClass(settings['class']).fadeIn(1000).fadeTo("slow", 0.8);
 
+            settings.beforeDisplay();
+
             var win = $(window);
-            var id = $(this).attr('href');
-            $(id).css({
-                'top':  win.height() / 2 - $(id).height() / 2,
-                'left': win.width() / 2 - $(id).width() / 2,
+            var _id = $(this).attr('href');
+            id = $(_id);
+            id.css({
+                'top':  win.height() / 2 - id.height() / 2,
+                'left': win.width() / 2 - id.width() / 2,
                 'position': 'fixed',
                 'z-index': 9999
             }).fadeIn(200);
@@ -54,13 +67,15 @@ limitations under the License.
             if (settings['outsideClickable']) {
                 $(div).click(function() {
                     $(this).hide();
-                    $(id).hide();
+                    id.hide();
+                    settings.onClose();
                 });
             }
 
             $(settings['closeButton']).click(function() {
                 $(div).hide();
-                $(id).hide();
+                id.hide();
+                settings.onClose();
             });
         });
     };
